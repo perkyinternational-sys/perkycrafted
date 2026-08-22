@@ -1,17 +1,37 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Perky Crafted | Smarter Ideas for Everyday Life"
+  description="Perky Crafted brings smarter ideas to everyday life."
+>
+  <main class="foundation">
+    <div class="container">
+      <h1>PERKY CRAFTED</h1>
+      <p class="tagline">Smarter Ideas for Everyday Life</p>
+      <p>Foundation setup complete.</p>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .foundation {
+    display: grid;
+    min-height: 100vh;
+    place-items: center;
+    text-align: center;
+  }
+
+  .foundation h1 {
+    margin-bottom: var(--space-3);
+    font-size: clamp(2.25rem, 7vw, 4.5rem);
+    letter-spacing: 0.05em;
+  }
+
+  .tagline {
+    margin-bottom: var(--space-5);
+    color: var(--color-teal);
+    font-size: clamp(1.125rem, 3vw, 1.5rem);
+  }
+</style>

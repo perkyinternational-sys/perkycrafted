@@ -1,0 +1,39 @@
+:root {
+  --color-navy: #19324d;
+  --color-teal: #2e7d7b;
+  --color-gold: #d39a38;
+  --color-background: #f7f9fb;
+  --color-text: #1f2933;
+  --color-white: #ffffff;
+  --color-border: #e2e8f0;
+
+  --font-heading: 'Poppins', Arial, sans-serif;
+  --font-body: 'Inter', Arial, sans-serif;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-pill: 9999px;
+
+  --container-narrow: 48rem;
+  --container-default: 72rem;
+  --container-wide: 80rem;
+
+  --shadow-sm: 0 1px 2px rgb(25 50 77 / 0.06);
+  --shadow-md: 0 4px 12px rgb(25 50 77 / 0.1);
+  --shadow-lg: 0 16px 32px rgb(25 50 77 / 0.14);
+
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+}
