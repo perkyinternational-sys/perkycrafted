@@ -1,0 +1,19 @@
+---
+const navigationItems = [
+  { label: 'Home', href: '/' },
+  { label: 'AI & Digital', href: '/ai-digital/' },
+  { label: 'Smart Living', href: '/smart-living/' },
+  { label: 'Create & Learn', href: '/create-learn/' },
+  { label: 'Mindset & Growth', href: '/mindset-growth/' },
+  { label: 'Buying Guides', href: '/buying-guides/' },
+  { label: 'Resources', href: '/resources/' },
+];
+---
+
+<nav class="desktop-nav" aria-label="Primary navigation">
+  <ul class="desktop-nav__list">
+    {navigationItems.map((item) => (
+      <li><a href={item.href}>{item.label}</a></li>
+    ))}
+  </ul>
+</nav>

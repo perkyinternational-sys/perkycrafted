@@ -1,0 +1,69 @@
+---
+const navigationItems = [
+  { label: 'Home', href: '/' },
+  { label: 'AI & Digital', href: '/ai-digital/' },
+  { label: 'Smart Living', href: '/smart-living/' },
+  { label: 'Create & Learn', href: '/create-learn/' },
+  { label: 'Mindset & Growth', href: '/mindset-growth/' },
+  { label: 'Buying Guides', href: '/buying-guides/' },
+  { label: 'Resources', href: '/resources/' },
+];
+---
+
+<button
+  class="header-icon-button mobile-menu-toggle"
+  type="button"
+  aria-label="Open navigation menu"
+  aria-expanded="false"
+  aria-controls="mobile-navigation"
+>
+  <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+    <path d="M4 7h16M4 12h16M4 17h16" />
+  </svg>
+</button>
+
+<nav class="mobile-nav" id="mobile-navigation" aria-label="Mobile navigation" hidden>
+  <ul class="mobile-nav__list">
+    {navigationItems.map((item) => (
+      <li><a href={item.href}>{item.label}</a></li>
+    ))}
+  </ul>
+  <a class="mobile-nav__shop" href="/shop/">Shop</a>
+</nav>
+
+<script>
+  const menuButton = document.querySelector<HTMLButtonElement>('.mobile-menu-toggle');
+  const mobileNav = document.querySelector<HTMLElement>('#mobile-navigation');
+  const mobileMediaQuery = window.matchMedia('(max-width: 55rem)');
+
+  if (menuButton && mobileNav) {
+    const closeMenu = () => {
+      mobileNav.hidden = true;
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.setAttribute('aria-label', 'Open navigation menu');
+    };
+
+    menuButton.addEventListener('click', () => {
+      const willOpen = mobileNav.hidden;
+      mobileNav.hidden = !willOpen;
+      menuButton.setAttribute('aria-expanded', String(willOpen));
+      menuButton.setAttribute('aria-label', willOpen ? 'Close navigation menu' : 'Open navigation menu');
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !mobileNav.hidden) {
+        closeMenu();
+        menuButton.focus();
+      }
+    });
+
+    const resetMenuAtDesktop = (event: MediaQueryListEvent | MediaQueryList) => {
+      if (!event.matches) {
+        closeMenu();
+      }
+    };
+
+    mobileMediaQuery.addEventListener('change', resetMenuAtDesktop);
+    resetMenuAtDesktop(mobileMediaQuery);
+  }
+</script>
