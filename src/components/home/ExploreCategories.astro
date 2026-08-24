@@ -1,0 +1,14 @@
+---
+const categories = [
+  { title: 'AI & Digital', description: 'AI tools, useful apps, software and practical digital guides.', href: '/ai-digital/' },
+  { title: 'Smart Living', description: 'Useful finds, everyday tech and smarter buying decisions.', href: '/smart-living/' },
+  { title: 'Create & Learn', description: 'Templates, learning resources and tools for creators and students.', href: '/create-learn/' },
+  { title: 'Mindset & Growth', description: 'Motivation, habits, discipline and practical personal growth.', href: '/mindset-growth/' },
+];
+---
+
+<section class="home-section home-section--muted" aria-labelledby="explore-heading">
+  <div class="container"><div class="section-heading"><h2 id="explore-heading">Explore Perky Crafted</h2></div>
+    <div class="content-grid content-grid--four">{categories.map((category) => <article class="content-card content-card--category"><h3><a href={category.href}>{category.title}</a></h3><p>{category.description}</p><a class="card-link" href={category.href}>Explore <span aria-hidden="true">→</span></a></article>)}</div>
+  </div>
+</section>

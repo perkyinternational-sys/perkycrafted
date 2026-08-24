@@ -1,37 +1,30 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ExploreCategories from '../components/home/ExploreCategories.astro';
+import FeaturedToday from '../components/home/FeaturedToday.astro';
+import HeroSection from '../components/home/HeroSection.astro';
+import LatestArticles from '../components/home/LatestArticles.astro';
+import MindsetGrowth from '../components/home/MindsetGrowth.astro';
+import NewsletterSection from '../components/home/NewsletterSection.astro';
+import ResourcesSection from '../components/home/ResourcesSection.astro';
+import ShopSection from '../components/home/ShopSection.astro';
+import TrendingGuides from '../components/home/TrendingGuides.astro';
+import UsefulFinds from '../components/home/UsefulFinds.astro';
+import '../styles/homepage.css';
 ---
 
 <BaseLayout
   title="Perky Crafted | Smarter Ideas for Everyday Life"
-  description="Perky Crafted brings smarter ideas to everyday life."
+  description="Discover useful guides, AI and digital tools, smart living recommendations, learning resources and practical ideas from Perky Crafted."
 >
-  <section class="foundation">
-    <div class="container">
-      <h1>PERKY CRAFTED</h1>
-      <p class="tagline">Smarter Ideas for Everyday Life</p>
-      <p>Foundation setup complete.</p>
-    </div>
-  </section>
+  <HeroSection />
+  <FeaturedToday />
+  <ExploreCategories />
+  <TrendingGuides />
+  <UsefulFinds />
+  <ResourcesSection />
+  <ShopSection />
+  <MindsetGrowth />
+  <NewsletterSection />
+  <LatestArticles />
 </BaseLayout>
-
-<style>
-  .foundation {
-    display: grid;
-    min-height: 100vh;
-    place-items: center;
-    text-align: center;
-  }
-
-  .foundation h1 {
-    margin-bottom: var(--space-3);
-    font-size: clamp(2.25rem, 7vw, 4.5rem);
-    letter-spacing: 0.05em;
-  }
-
-  .tagline {
-    margin-bottom: var(--space-5);
-    color: var(--color-teal);
-    font-size: clamp(1.125rem, 3vw, 1.5rem);
-  }
-</style>

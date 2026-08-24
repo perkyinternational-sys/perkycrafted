@@ -1,0 +1,13 @@
+---
+const products = [
+  { title: 'Perky AI Productivity Pack', price: '₹199', href: '/shop/digital-products/' },
+  { title: 'Perky Creator Content Planner', price: '₹249', href: '/shop/templates/' },
+  { title: 'Perky Student Success Planner', price: '₹149', href: '/shop/printables/' },
+];
+---
+
+<section class="home-section home-section--shop" aria-labelledby="shop-heading">
+  <div class="container"><div class="section-heading"><h2 id="shop-heading">Perky Crafted Shop</h2><p>Practical digital products designed to help you work, create and learn more effectively.</p></div>
+    <div class="content-grid content-grid--three">{products.map((product) => <article class="content-card content-card--product"><p class="card-eyebrow">Digital product</p><h3><a href={product.href}>{product.title}</a></h3><p class="product-price">{product.price}</p><a class="button button--secondary" href={product.href}>View Product</a></article>)}</div>
+  </div>
+</section>
