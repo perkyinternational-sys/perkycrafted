@@ -1,0 +1,6 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CategoryPage from '../../components/category/CategoryPage.astro';
+const articles = ['Useful Desk Products', 'Travel Gadgets Worth Carrying', 'Kitchen Tools That Save Time', 'Smart Home Devices for Beginners', 'Everyday Products Worth Buying', 'Practical Gadgets for Small Spaces'].map((title) => ({ title }));
+---
+<BaseLayout title="Smart Living | Perky Crafted" description="Useful products, everyday technology, practical recommendations and smarter buying ideas for modern life."><CategoryPage eyebrow="EXPLORE" title="Smart Living" description="Useful products, everyday technology, practical recommendations and smarter buying ideas for modern life." featuredArticle={{ title: 'Useful Products Under \u20B9500', excerpt: 'Helpful everyday finds selected for practical value.' }} articles={articles} pageClass="category-page--smart-living" /></BaseLayout>

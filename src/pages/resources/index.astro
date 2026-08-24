@@ -1,0 +1,6 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CategoryPage from '../../components/category/CategoryPage.astro';
+const articles = ['7-Day Content Planner', 'Weekly Study Planner', 'Student Productivity Checklist', 'Creator Planning Sheet', 'Simple Goal Planner', 'AI Prompt Starter Pack'].map((title) => ({ title }));
+---
+<BaseLayout title="Free Resources | Perky Crafted" description="Useful templates, planners, prompts and practical downloads created to help you work, learn and organize better."><CategoryPage eyebrow="EXPLORE" title="Free Resources" description="Useful templates, planners, prompts and practical downloads created to help you work, learn and organize better." featuredArticle={{ title: '15 Useful AI Prompts', excerpt: 'A useful set of prompts to help you explore AI with more confidence.' }} articles={articles} pageClass="category-page--resources" /></BaseLayout>

@@ -1,0 +1,6 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CategoryPage from '../../components/category/CategoryPage.astro';
+const articles = ['How to Make a Simple Ebook and Sell It Online', 'Best Tools for Content Creators', 'Weekly Study Planner', '7-Day Content Planner', 'How to Organize Your Digital Work', 'Useful Resources for New Creators'].map((title) => ({ title }));
+---
+<BaseLayout title="Create & Learn | Perky Crafted" description="Practical resources, creator tools, templates and learning ideas for students, creators and independent professionals."><CategoryPage eyebrow="EXPLORE" title="Create & Learn" description="Practical resources, creator tools, templates and learning ideas for students, creators and independent professionals." featuredArticle={{ title: 'Build a Better Content Calendar', excerpt: 'A clear framework for planning more consistent, useful content.' }} articles={articles} pageClass="category-page--create-learn" /></BaseLayout>

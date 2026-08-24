@@ -1,0 +1,23 @@
+---
+interface Props {
+  category: string;
+  title: string;
+  excerpt: string;
+  href: string;
+  badge?: string;
+  visualVariant?: number;
+  ctaText?: string;
+}
+
+const { category, title, excerpt, href, badge, visualVariant = 1, ctaText = 'Read article' } = Astro.props;
+---
+
+<article class="article-card">
+  <div class={`article-card__visual article-card__visual--${visualVariant}`} aria-hidden="true"><span></span><span></span></div>
+  <div class="article-card__content">
+    <div class="article-card__meta">{badge && <span class="article-card__badge">{badge}</span>}<p>{category}</p></div>
+    <h3><a href={href}>{title}</a></h3>
+    <p>{excerpt}</p>
+    <a class="card-link" href={href}>{ctaText} <span aria-hidden="true">&#8594;</span></a>
+  </div>
+</article>

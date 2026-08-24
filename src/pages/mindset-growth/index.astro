@@ -1,0 +1,6 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CategoryPage from '../../components/category/CategoryPage.astro';
+const articles = ['How to Build Discipline When Motivation Fades', 'Daily Habits for a More Productive Life', 'How Students Can Stay Motivated During Exams', 'Simple Ways to Improve Focus', 'Building Better Daily Routines', 'Small Habits That Compound Over Time'].map((title) => ({ title }));
+---
+<BaseLayout title="Mindset & Growth | Perky Crafted" description="Practical motivation, better habits, discipline and personal growth ideas for everyday life."><CategoryPage eyebrow="EXPLORE" title="Mindset & Growth" description="Practical motivation, better habits, discipline and personal growth ideas for everyday life." featuredArticle={{ title: 'How to Stop Procrastinating and Start Taking Action', excerpt: 'Small practical shifts to help you begin and keep moving forward.' }} articles={articles} pageClass="category-page--mindset-growth" /></BaseLayout>
