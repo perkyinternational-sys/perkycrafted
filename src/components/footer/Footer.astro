@@ -1,0 +1,77 @@
+---
+import '../../styles/footer.css';
+
+const exploreLinks = [
+  { label: 'AI & Digital', href: '/ai-digital/' },
+  { label: 'Smart Living', href: '/smart-living/' },
+  { label: 'Create & Learn', href: '/create-learn/' },
+  { label: 'Mindset & Growth', href: '/mindset-growth/' },
+  { label: 'Buying Guides', href: '/buying-guides/' },
+  { label: 'Resources', href: '/resources/' },
+];
+
+const shopLinks = [
+  { label: 'Shop', href: '/shop/' },
+  { label: 'Digital Products', href: '/shop/digital-products/' },
+  { label: 'Ebooks', href: '/shop/ebooks/' },
+  { label: 'Templates', href: '/shop/templates/' },
+  { label: 'Printables', href: '/shop/printables/' },
+];
+
+const companyLinks = [
+  { label: 'About', href: '/about/' },
+  { label: 'Contact', href: '/contact/' },
+  { label: 'Editorial Policy', href: '/editorial-policy/' },
+  { label: 'How We Review Products', href: '/how-we-review/' },
+  { label: 'Affiliate Disclosure', href: '/affiliate-disclosure/' },
+];
+
+const legalLinks = [
+  { label: 'Privacy Policy', href: '/privacy-policy/' },
+  { label: 'Terms & Conditions', href: '/terms/' },
+  { label: 'Digital Product / Refund Policy', href: '/refund-policy/' },
+  { label: 'Disclaimer', href: '/disclaimer/' },
+];
+---
+
+<footer class="site-footer">
+  <div class="site-footer__main container">
+    <section class="site-footer__brand" aria-labelledby="footer-brand-heading">
+      <h2 id="footer-brand-heading">PERKY CRAFTED</h2>
+      <p>Useful ideas, smarter tools, practical recommendations and resources crafted for everyday life.</p>
+      <p class="site-footer__disclosure">Perky Crafted is a brand of Perky International.</p>
+      <div class="site-footer__social" aria-label="Social media">
+        <a href="#footer-social" aria-label="Facebook (profile coming soon)">Facebook</a>
+        <a href="#footer-social" aria-label="Instagram (profile coming soon)">Instagram</a>
+        <a href="#footer-social" aria-label="YouTube (channel coming soon)">YouTube</a>
+      </div>
+    </section>
+
+    <nav class="site-footer__nav" aria-labelledby="footer-explore-heading">
+      <h2 id="footer-explore-heading">Explore</h2>
+      <ul>{exploreLinks.map((link) => <li><a href={link.href}>{link.label}</a></li>)}</ul>
+    </nav>
+
+    <nav class="site-footer__nav" aria-labelledby="footer-shop-heading">
+      <h2 id="footer-shop-heading">Shop</h2>
+      <ul>{shopLinks.map((link) => <li><a href={link.href}>{link.label}</a></li>)}</ul>
+    </nav>
+
+    <nav class="site-footer__nav" aria-labelledby="footer-company-heading">
+      <h2 id="footer-company-heading">Company</h2>
+      <ul>{companyLinks.map((link) => <li><a href={link.href}>{link.label}</a></li>)}</ul>
+    </nav>
+
+    <nav class="site-footer__nav" aria-labelledby="footer-legal-heading">
+      <h2 id="footer-legal-heading">Legal</h2>
+      <ul>{legalLinks.map((link) => <li><a href={link.href}>{link.label}</a></li>)}</ul>
+    </nav>
+  </div>
+
+  <div class="site-footer__bottom">
+    <div class="site-footer__bottom-inner container">
+      <p>© 2026 Perky International. All rights reserved.</p>
+      <p>Perky Crafted is a brand of Perky International.</p>
+    </div>
+  </div>
+</footer>
