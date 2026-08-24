@@ -2,7 +2,7 @@
 const articles = ['Best AI Tools for Making Presentations', 'Best Laptop Stands for Work and Study', 'How to Make a Simple Ebook and Sell It Online', 'How Students Can Stay Motivated During Exams'];
 ---
 
-<section class="home-section" aria-labelledby="latest-heading">
+<section class="home-section home-section--latest" aria-labelledby="latest-heading">
   <div class="container"><div class="section-heading"><h2 id="latest-heading">Latest Articles</h2></div>
     <div class="content-grid content-grid--four">{articles.map((article) => <article class="content-card"><p class="card-eyebrow">Latest</p><h3><a href="#latest-heading">{article}</a></h3><a class="card-link" href="#latest-heading">Read article <span aria-hidden="true">→</span></a></article>)}</div>
   </div>

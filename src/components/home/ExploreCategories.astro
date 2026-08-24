@@ -7,7 +7,7 @@ const categories = [
 ];
 ---
 
-<section class="home-section home-section--muted" aria-labelledby="explore-heading">
+<section class="home-section home-section--muted home-section--explore" aria-labelledby="explore-heading">
   <div class="container"><div class="section-heading"><h2 id="explore-heading">Explore Perky Crafted</h2></div>
     <div class="content-grid content-grid--four">{categories.map((category) => <article class="content-card content-card--category"><h3><a href={category.href}>{category.title}</a></h3><p>{category.description}</p><a class="card-link" href={category.href}>Explore <span aria-hidden="true">→</span></a></article>)}</div>
   </div>
