@@ -1,0 +1,6 @@
+---
+interface RelatedArticle { category: string; title: string; href: string; visualVariant?: number; }
+interface Props { articles: RelatedArticle[]; }
+const { articles } = Astro.props;
+---
+<section class="related-articles" aria-labelledby="related-heading"><h2 id="related-heading">Related Articles</h2><div class="related-articles__grid">{articles.map((article, index) => <article class="related-card"><div class={`related-card__visual related-card__visual--${article.visualVariant ?? (index % 3) + 1}`} aria-hidden="true"></div><p>{article.category}</p><h3><a href={article.href}>{article.title}</a></h3><a class="card-link" href={article.href}>Read article <span aria-hidden="true">&#8594;</span></a></article>)}</div></section>

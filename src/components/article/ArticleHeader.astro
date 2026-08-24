@@ -1,0 +1,5 @@
+---
+interface Props { category: string; categoryHref: string; title: string; description: string; publishedDate: string; updatedDate?: string; readingTime: string; author: string; }
+const { category, categoryHref, title, description, publishedDate, updatedDate, readingTime, author } = Astro.props;
+---
+<header class="article-header"><nav class="article-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href={categoryHref}>{category}</a><span aria-hidden="true">/</span><span aria-current="page">{title}</span></nav><a class="article-category" href={categoryHref}>{category}</a><h1>{title}</h1><p class="article-deck">{description}</p><div class="article-meta"><time datetime="2026-08-24">Published {publishedDate}</time>{updatedDate && <time datetime="2026-08-24">Updated {updatedDate}</time>}<span>{readingTime}</span><span>{author}</span></div></header>
