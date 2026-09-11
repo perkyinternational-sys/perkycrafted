@@ -1,0 +1,46 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const allArticles = await getCollection('articles', ({ data }) => {
+    return data.draft !== true;
+  });
+
+  return allArticles.map((article) => {
+    const candidates = allArticles.filter((a) => a.id !== article.id);
+    const sameCategory = candidates.filter((a) => a.data.category === article.data.category);
+    const otherCategory = candidates.filter((a) => a.data.category !== article.data.category);
+
+    const relatedArticles = [...sameCategory, ...otherCategory].slice(0, 3).map((a) => ({
+      id: a.id,
+      title: a.data.title,
+      category: a.data.category,
+      url: `/articles/${a.id}/`,
+    }));
+
+    return {
+      params: { slug: article.id },
+      props: { article, relatedArticles },
+    };
+  });
+}
+
+const { article, relatedArticles } = Astro.props;
+const { Content, headings } = await render(article);
+---
+
+<ArticleLayout
+  title={article.data.title}
+  description={article.data.description}
+  category={article.data.category}
+  publishedDate={article.data.publishedDate}
+  updatedDate={article.data.updatedDate}
+  author={article.data.author}
+  featuredImage={article.data.featuredImage}
+  quickAnswer={article.data.quickAnswer}
+  headings={headings}
+  relatedArticles={relatedArticles}
+>
+  <Content />
+</ArticleLayout>

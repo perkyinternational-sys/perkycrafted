@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductPage from '../../components/shop/ProductPage.astro';
+
+const relatedProducts = [
+  {
+    title: 'AI Productivity Starter Kit',
+    description:
+      'A practical digital toolkit to help students and creators organize AI-assisted work more effectively.',
+    price: '₹299',
+    href: '/shop/ai-productivity-starter-kit/',
+    visualVariant: 1,
+  },
+  {
+    title: 'Smart Study Planner',
+    description:
+      'A downloadable study-planning system designed to make learning schedules simpler and more consistent.',
+    price: '₹199',
+    href: '/shop/smart-study-planner/',
+    visualVariant: 3,
+  },
+];
+---
+
+<BaseLayout
+  title="Creator Planning Workbook | Perky Crafted"
+  description="A structured printable workbook for planning content, projects and creative goals with greater clarity."
+>
+  <main>
+    <ProductPage
+      title="Creator Planning Workbook"
+      description="A structured printable workbook designed to help creators organize ideas, content, projects and creative goals with greater clarity."
+      price="₹249"
+      visualVariant={2}
+      relatedProducts={relatedProducts}
+    />
+  </main>
+</BaseLayout>

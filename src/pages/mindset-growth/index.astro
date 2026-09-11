@@ -1,6 +1,43 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CategoryPage from '../../components/category/CategoryPage.astro';
-const articles = ['How to Build Discipline When Motivation Fades', 'Daily Habits for a More Productive Life', 'How Students Can Stay Motivated During Exams', 'Simple Ways to Improve Focus', 'Building Better Daily Routines', 'Small Habits That Compound Over Time'].map((title) => ({ title }));
+
+const rawArticles = await getCollection('articles', ({ data }) => {
+  return data.category === 'Mindset & Growth' && data.draft !== true;
+});
+
+const featuredEntry = rawArticles.find((entry) => entry.data.featured === true);
+const featuredArticle = featuredEntry
+  ? {
+      title: featuredEntry.data.title,
+      excerpt: featuredEntry.data.description,
+      href: `/articles/${featuredEntry.id}/`,
+    }
+  : undefined;
+
+const regularEntries = featuredEntry
+  ? rawArticles.filter((entry) => entry.id !== featuredEntry.id)
+  : rawArticles;
+
+const articles = regularEntries.map((entry) => ({
+  title: entry.data.title,
+  excerpt: entry.data.description,
+  href: `/articles/${entry.id}/`,
+  badge: entry.data.tags?.[0],
+}));
 ---
-<BaseLayout title="Mindset & Growth | Perky Crafted" description="Practical motivation, better habits, discipline and personal growth ideas for everyday life."><CategoryPage eyebrow="EXPLORE" title="Mindset & Growth" description="Practical motivation, better habits, discipline and personal growth ideas for everyday life." featuredArticle={{ title: 'How to Stop Procrastinating and Start Taking Action', href: '/articles/how-to-stop-procrastinating-and-start-taking-action/', excerpt: 'Small practical shifts to help you begin and keep moving forward.' }} articles={articles} pageClass="category-page--mindset-growth" /></BaseLayout>
+
+<BaseLayout
+  title="Mindset & Growth | Perky Crafted"
+  description="Practical motivation, better habits, discipline and personal growth ideas for everyday life."
+>
+  <CategoryPage
+    eyebrow="EXPLORE"
+    title="Mindset & Growth"
+    description="Practical motivation, better habits, discipline and personal growth ideas for everyday life."
+    featuredArticle={featuredArticle}
+    articles={articles}
+    pageClass="category-page--mindset-growth"
+  />
+</BaseLayout>

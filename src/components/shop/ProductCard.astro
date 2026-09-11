@@ -1,0 +1,53 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  price: string;
+  href: string;
+  visualVariant?: number;
+}
+
+const {
+  title,
+  description,
+  price,
+  href,
+  visualVariant = 1,
+} = Astro.props;
+
+const visualLabel =
+  visualVariant === 1
+    ? 'AI'
+    : visualVariant === 2
+      ? 'CREATE'
+      : 'STUDY';
+---
+
+<article class="product-card">
+  <div
+    class={`product-card__cover product-card__cover--${visualVariant}`}
+    aria-hidden="true"
+  >
+    <span>PERKY</span>
+    <strong>{visualLabel}</strong>
+    <i></i>
+  </div>
+
+  <p class="product-card__eyebrow">Digital Product</p>
+
+  <h3>
+    <a href={href}>{title}</a>
+  </h3>
+
+  <p class="product-card__description">
+    {description}
+  </p>
+
+  <p class="product-card__price">
+    {price}
+  </p>
+
+  <a class="product-card__button" href={href}>
+    View Product
+  </a>
+</article>

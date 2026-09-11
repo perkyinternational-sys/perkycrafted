@@ -1,9 +1,34 @@
 ---
-const resources = ['15 Useful AI Prompts', '7-Day Content Planner', 'Weekly Study Planner'];
+interface Article {
+  title: string;
+  category: string;
+  href: string;
+}
+
+interface Props {
+  articles?: Article[];
+}
+
+const { articles = [] } = Astro.props;
 ---
 
-<section class="home-section home-section--resources" aria-labelledby="resources-heading">
-  <div class="container"><div class="section-heading"><p class="section-eyebrow">Made to use</p><h2 id="resources-heading">Free Perky Resources</h2></div>
-    <div class="content-grid content-grid--three">{resources.map((resource) => <article class="content-card content-card--resource"><h3>{resource}</h3><a class="button button--secondary" href="#resources-heading">Get Free Resource</a></article>)}</div>
-  </div>
-</section>
+{articles && articles.length > 0 && (
+  <section class="home-section home-section--resources" aria-labelledby="resources-heading">
+    <div class="container">
+      <div class="section-heading">
+        <p class="section-eyebrow">Made to use</p>
+        <h2 id="resources-heading">Free Perky Resources</h2>
+      </div>
+      <div class="content-grid content-grid--three">
+        {articles.map((article) => (
+          <article class="content-card content-card--resource">
+            <h3>{article.title}</h3>
+            <a class="button button--secondary" href={article.href}>
+              Get Free Resource
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

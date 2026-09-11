@@ -1,0 +1,46 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<section class="product-info" aria-labelledby="product-info-heading">
+  <h2 id="product-info-heading">
+    About {title}
+  </h2>
+
+  <div class="product-info__grid">
+    <section>
+      <h3>What You Get</h3>
+      <p>
+        Practical downloadable materials designed to help you take the next
+        step with more clarity.
+      </p>
+    </section>
+
+    <section>
+      <h3>Who It Is For</h3>
+      <p>
+        Students, creators and independent professionals looking for a useful,
+        flexible resource.
+      </p>
+    </section>
+
+    <section>
+      <h3>How It Works</h3>
+      <p>
+        Choose the product, complete payment when checkout is available, then
+        access your digital files.
+      </p>
+    </section>
+
+    <section>
+      <h3>File / Delivery Information</h3>
+      <p>
+        Digital download only. No physical product will be shipped.
+      </p>
+    </section>
+  </div>
+</section>

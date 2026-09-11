@@ -30,8 +30,50 @@ const ctaText = isResourcePage ? 'View Resource' : 'Read article';
 <div class:list={['category-page', pageClass]}>
   <CategoryHero eyebrow={eyebrow} title={title} description={description} />
   <div class="container category-page__content">
-    {featuredArticle && <section class="featured-content" aria-labelledby="featured-content-heading"><p class="section-eyebrow">Featured</p><h2 id="featured-content-heading">Featured {isResourcePage ? 'Resource' : 'Article'}</h2><article class="featured-content__card"><div class="featured-content__visual" aria-hidden="true"><span></span><span></span></div><div><p class="card-eyebrow">{title}</p><h3><a href={cardHref(featuredArticle)}>{featuredArticle.title}</a></h3><p>{cardExcerpt(featuredArticle)}</p><a class="button button--secondary" href={cardHref(featuredArticle)}>{ctaText}</a></div></article></section>}
-    <section class="category-archive" id="article-grid" aria-labelledby="archive-heading"><div class="category-archive__heading"><h2 id="archive-heading">{isResourcePage ? 'Explore Resources' : `Latest in ${title}`}</h2>{pageClass.includes('buying-guides') && <p class="category-disclosure">Some links may be affiliate links. We may earn a commission at no extra cost to you.</p>}</div><div class="article-grid">{articles.map((article, index) => <ArticleCard category={title} title={article.title} excerpt={cardExcerpt(article)} href={cardHref(article)} badge={article.badge} visualVariant={article.visualVariant ?? (index % 3) + 1} ctaText={ctaText} />)}</div></section>
-    <aside class="category-newsletter" aria-labelledby="category-newsletter-heading"><div><h2 id="category-newsletter-heading">Get useful ideas from Perky Crafted</h2><p>Practical guides, resources and recommendations delivered occasionally.</p></div><a class="button button--primary" href="/#newsletter">Join the Newsletter</a></aside>
+    {featuredArticle && (
+      <section class="featured-content" aria-labelledby="featured-content-heading">
+        <p class="section-eyebrow">Featured</p>
+        <h2 id="featured-content-heading">Featured {isResourcePage ? 'Resource' : 'Article'}</h2>
+        <article class="featured-content__card">
+          <div class="featured-content__visual" aria-hidden="true"><span></span><span></span></div>
+          <div>
+            <p class="card-eyebrow">{title}</p>
+            <h3><a href={cardHref(featuredArticle)}>{featuredArticle.title}</a></h3>
+            <p>{cardExcerpt(featuredArticle)}</p>
+            <a class="button button--secondary" href={cardHref(featuredArticle)}>{ctaText}</a>
+          </div>
+        </article>
+      </section>
+    )}
+    {articles.length > 0 && (
+      <section class="category-archive" id="article-grid" aria-labelledby="archive-heading">
+        <div class="category-archive__heading">
+          <h2 id="archive-heading">{isResourcePage ? 'Explore Resources' : `Latest in ${title}`}</h2>
+          {pageClass.includes('buying-guides') && (
+            <p class="category-disclosure">Some links may be affiliate links. We may earn a commission at no extra cost to you.</p>
+          )}
+        </div>
+        <div class="article-grid">
+          {articles.map((article, index) => (
+            <ArticleCard
+              category={title}
+              title={article.title}
+              excerpt={cardExcerpt(article)}
+              href={cardHref(article)}
+              badge={article.badge}
+              visualVariant={article.visualVariant ?? (index % 3) + 1}
+              ctaText={ctaText}
+            />
+          ))}
+        </div>
+      </section>
+    )}
+    <aside class="category-newsletter" aria-labelledby="category-newsletter-heading">
+      <div>
+        <h2 id="category-newsletter-heading">Get useful ideas from Perky Crafted</h2>
+        <p>Practical guides, resources and recommendations delivered occasionally.</p>
+      </div>
+      <a class="button button--primary" href="/#newsletter">Join the Newsletter</a>
+    </aside>
   </div>
 </div>

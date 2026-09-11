@@ -1,0 +1,172 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import '../styles/article.css';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+export interface RelatedArticle {
+  id: string;
+  title: string;
+  category: string;
+  url: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  category: string;
+  categoryUrl?: string;
+  publishedDate: Date | string;
+  updatedDate?: Date | string;
+  author: string;
+  featuredImage?: string;
+  featuredImageAlt?: string;
+  quickAnswer?: string;
+  headings?: Heading[];
+  canonicalURL?: string;
+  relatedArticles?: RelatedArticle[];
+}
+
+const {
+  title,
+  description,
+  category,
+  categoryUrl = `/category/${category.toLowerCase().replace(/\s+/g, '-')}`,
+  publishedDate,
+  updatedDate,
+  author,
+  featuredImage,
+  featuredImageAlt = title,
+  quickAnswer,
+  headings = [],
+  canonicalURL,
+  relatedArticles = [],
+} = Astro.props;
+
+const formatDate = (dateInput: Date | string) => {
+  const dateObj = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
+  return dateObj.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+};
+
+const isoDate = (dateInput: Date | string) => {
+  const dateObj = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
+  return dateObj.toISOString();
+};
+---
+
+<BaseLayout title={title} description={description} canonicalURL={canonicalURL}>
+  <article class="article-page__container">
+    {/* 1. Breadcrumb */}
+    <nav aria-label="Breadcrumb" class="article-breadcrumb">
+      <ol class="breadcrumb-list">
+        <li><a href="/">Home</a></li>
+        <li><span class="separator" aria-hidden="true">/</span></li>
+        <li><a href={categoryUrl}>{category}</a></li>
+        <li><span class="separator" aria-hidden="true">/</span></li>
+        <li><span aria-current="page" class="breadcrumb-current">{title}</span></li>
+      </ol>
+    </nav>
+
+    <header class="article-header">
+      {/* 2. Article category */}
+      <a href={categoryUrl} class="article-category">{category}</a>
+
+      {/* 3. H1 article title */}
+      <h1 class="article-title">{title}</h1>
+
+      {/* 4. Description/excerpt */}
+      {description && <p class="article-deck">{description}</p>}
+
+      {/* 5. Author, published date, and optional updated date */}
+      <div class="article-meta">
+        <span class="article-meta__item article-author">By <strong>{author}</strong></span>
+        <span class="article-meta__item article-published">
+          Published <time datetime={isoDate(publishedDate)}>{formatDate(publishedDate)}</time>
+        </span>
+        {updatedDate && (
+          <span class="article-meta__item article-updated">
+            Updated <time datetime={isoDate(updatedDate)}>{formatDate(updatedDate)}</time>
+          </span>
+        )}
+      </div>
+    </header>
+
+    {/* 6. Optional featured image */}
+    {featuredImage && (
+      <div class="article-featured-image-wrap">
+        <img src={featuredImage} alt={featuredImageAlt} class="article-featured-img" loading="eager" />
+      </div>
+    )}
+
+    {/* 7. Quick Answer box */}
+    {(quickAnswer || Astro.slots.has('quick-answer')) && (
+      <aside class="quick-answer-box" aria-labelledby="quick-answer-title">
+        <div class="quick-answer-header">
+          <span class="quick-answer-badge" aria-hidden="true">⚡</span>
+          <h2 id="quick-answer-title" class="quick-answer-title">Quick Answer</h2>
+        </div>
+        <div class="quick-answer-content">
+          {quickAnswer ? <p>{quickAnswer}</p> : <slot name="quick-answer" />}
+        </div>
+      </aside>
+    )}
+
+    {/* 8. Table of Contents area */}
+    {(headings.length > 0 || Astro.slots.has('toc')) && (
+      <nav class="article-toc" aria-labelledby="toc-heading">
+        <h2 id="toc-heading" class="toc-title">Table of Contents</h2>
+        {headings.length > 0 ? (
+          <ul class="toc-list">
+            {headings.filter(h => h.depth <= 3).map(h => (
+              <li class={`toc-item depth-${h.depth}`}>
+                <a href={`#${h.slug}`}>{h.text}</a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <slot name="toc" />
+        )}
+      </nav>
+    )}
+
+    {/* 9. Main article content using <slot /> */}
+    <div class="article-body">
+      <slot />
+    </div>
+
+    {/* 10. Affiliate disclosure box */}
+    <aside class="article-disclosure" aria-label="Affiliate Disclosure">
+      <p>
+        <strong>Affiliate Disclosure:</strong> Perky Crafted is reader-supported. When you buy through links on our site, we may earn an affiliate commission at no extra cost to you.
+      </p>
+    </aside>
+
+    {/* 11. Related guides section (data-driven) */}
+    {relatedArticles && relatedArticles.length > 0 && (
+      <section class="related-articles" aria-labelledby="related-guides-heading">
+        <h2 id="related-guides-heading">Related Guides</h2>
+        <div class="related-articles__grid">
+          {relatedArticles.map((related, index) => {
+            const visualClass = index === 1 ? 'related-card__visual related-card__visual--2' : index === 2 ? 'related-card__visual related-card__visual--3' : 'related-card__visual';
+            return (
+              <div class="related-card">
+                <div class={visualClass}></div>
+                <p>{related.category}</p>
+                <h3><a href={related.url}>{related.title}</a></h3>
+                <a href={related.url} class="card-link">Read Guide &rarr;</a>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    )}
+  </article>
+</BaseLayout>

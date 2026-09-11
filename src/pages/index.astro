@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ExploreCategories from '../components/home/ExploreCategories.astro';
 import FeaturedToday from '../components/home/FeaturedToday.astro';
@@ -11,6 +12,70 @@ import ShopSection from '../components/home/ShopSection.astro';
 import TrendingGuides from '../components/home/TrendingGuides.astro';
 import UsefulFinds from '../components/home/UsefulFinds.astro';
 import '../styles/homepage.css';
+
+const allArticles = await getCollection('articles', ({ data }) => data.draft !== true);
+
+const featuredEntries = allArticles
+  .filter((entry) => entry.data.featured === true)
+  .sort((a, b) => new Date(b.data.publishedDate).getTime() - new Date(a.data.publishedDate).getTime())
+  .slice(0, 3);
+
+const featuredArticles = featuredEntries.map((entry) => ({
+  title: entry.data.title,
+  category: entry.data.category,
+  href: `/articles/${entry.id}/`,
+}));
+
+const featuredIds = new Set(featuredEntries.map((entry) => entry.id));
+
+const trendingArticles = allArticles
+  .filter((entry) => !featuredIds.has(entry.id))
+  .sort((a, b) => new Date(b.data.publishedDate).getTime() - new Date(a.data.publishedDate).getTime())
+  .slice(0, 3)
+  .map((entry) => ({
+    title: entry.data.title,
+    category: entry.data.category,
+    href: `/articles/${entry.id}/`,
+  }));
+
+const usefulFindsArticles = allArticles
+  .filter((entry) => entry.data.category === 'Smart Living' || entry.data.category === 'Buying Guides')
+  .sort((a, b) => new Date(b.data.publishedDate).getTime() - new Date(a.data.publishedDate).getTime())
+  .slice(0, 3)
+  .map((entry) => ({
+    title: entry.data.title,
+    category: entry.data.category,
+    href: `/articles/${entry.id}/`,
+  }));
+
+const resourceArticles = allArticles
+  .filter((entry) => entry.data.category === 'Resources' || entry.data.category === 'Free Resources')
+  .sort((a, b) => new Date(b.data.publishedDate).getTime() - new Date(a.data.publishedDate).getTime())
+  .slice(0, 3)
+  .map((entry) => ({
+    title: entry.data.title,
+    category: entry.data.category,
+    href: `/articles/${entry.id}/`,
+  }));
+
+const mindsetArticles = allArticles
+  .filter((entry) => entry.data.category === 'Mindset & Growth')
+  .sort((a, b) => new Date(b.data.publishedDate).getTime() - new Date(a.data.publishedDate).getTime())
+  .slice(0, 3)
+  .map((entry) => ({
+    title: entry.data.title,
+    category: entry.data.category,
+    href: `/articles/${entry.id}/`,
+  }));
+
+const latestArticles = [...allArticles]
+  .sort((a, b) => new Date(b.data.publishedDate).getTime() - new Date(a.data.publishedDate).getTime())
+  .slice(0, 4)
+  .map((entry) => ({
+    title: entry.data.title,
+    category: entry.data.category,
+    href: `/articles/${entry.id}/`,
+  }));
 ---
 
 <BaseLayout
@@ -18,13 +83,13 @@ import '../styles/homepage.css';
   description="Discover useful guides, AI and digital tools, smart living recommendations, learning resources and practical ideas from Perky Crafted."
 >
   <HeroSection />
-  <FeaturedToday />
+  <FeaturedToday articles={featuredArticles} />
   <ExploreCategories />
-  <TrendingGuides />
-  <UsefulFinds />
-  <ResourcesSection />
+  <TrendingGuides articles={trendingArticles} />
+  <UsefulFinds articles={usefulFindsArticles} />
+  <ResourcesSection articles={resourceArticles} />
   <ShopSection />
-  <MindsetGrowth />
+  <MindsetGrowth articles={mindsetArticles} />
   <NewsletterSection />
-  <LatestArticles />
+  <LatestArticles articles={latestArticles} />
 </BaseLayout>

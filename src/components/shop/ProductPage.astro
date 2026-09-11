@@ -1,0 +1,120 @@
+---
+import ProductCard from './ProductCard.astro';
+import ProductInfo from './ProductInfo.astro';
+import '../../styles/shop.css';
+
+interface Product {
+  title: string;
+  description: string;
+  price: string;
+  href: string;
+  visualVariant?: number;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  price: string;
+  visualVariant?: number;
+  relatedProducts: Product[];
+  pageClass?: string;
+}
+
+const {
+  title,
+  description,
+  price,
+  visualVariant = 1,
+  relatedProducts,
+  pageClass = '',
+} = Astro.props;
+
+const visualLabel =
+  visualVariant === 1
+    ? 'AI'
+    : visualVariant === 2
+      ? 'CREATE'
+      : 'STUDY';
+---
+
+<article class:list={['product-page', pageClass]}>
+  <div class="container">
+    <nav class="product-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span aria-hidden="true">/</span>
+
+      <a href="/shop/">Shop</a>
+      <span aria-hidden="true">/</span>
+
+      <span aria-current="page">{title}</span>
+    </nav>
+
+    <section class="product-page__hero">
+      <div
+        class={`product-page__cover product-page__cover--${visualVariant}`}
+        aria-hidden="true"
+      >
+        <span>PERKY</span>
+        <strong>{visualLabel}</strong>
+        <i></i>
+      </div>
+
+      <div>
+        <p class="section-eyebrow">DIGITAL PRODUCT</p>
+
+        <h1>{title}</h1>
+
+        <p class="product-page__description">
+          {description}
+        </p>
+
+        <p class="product-page__price">
+          {price}
+        </p>
+
+        <button class="product-page__buy" type="button">
+          Buy Now
+        </button>
+
+        <p class="product-page__note">
+          Digital download — no physical product will be shipped.
+        </p>
+      </div>
+    </section>
+
+    <ProductInfo title={title} />
+
+    <aside class="product-trust">
+      <h2>Good to Know</h2>
+
+      <ul>
+        <li>Secure payment integration coming later</li>
+        <li>Download access after successful payment</li>
+        <li>
+          Digital products are non-returnable once downloaded, subject to final
+          refund policy
+        </li>
+      </ul>
+    </aside>
+
+    <section
+      class="related-products"
+      aria-labelledby="related-products-heading"
+    >
+      <h2 id="related-products-heading">
+        Related Products
+      </h2>
+
+      <div class="product-grid">
+        {
+          relatedProducts.map((product, index) => (
+            <ProductCard
+              {...product}
+              visualVariant={product.visualVariant ?? (index % 3) + 1}
+            />
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</article>

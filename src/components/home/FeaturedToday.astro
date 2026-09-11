@@ -1,16 +1,35 @@
 ---
-const articles = [
-  { title: 'Best AI Tools for Students', category: 'AI & Digital' },
-  { title: 'Useful Products Under ₹500', category: 'Smart Living' },
-  { title: 'Build a Better Content Calendar', category: 'Create & Learn' },
-];
+interface Article {
+  title: string;
+  category: string;
+  href: string;
+}
+
+interface Props {
+  articles?: Article[];
+}
+
+const { articles = [] } = Astro.props;
 ---
 
-<section class="home-section home-section--featured" aria-labelledby="featured-heading">
-  <div class="container">
-    <div class="section-heading"><h2 id="featured-heading">Featured Today</h2><p>Fresh ideas, practical tools and useful recommendations worth exploring.</p></div>
-    <div class="content-grid content-grid--three">
-      {articles.map((article) => <article class="content-card"><p class="card-eyebrow">{article.category}</p><h3><a href="#featured-heading">{article.title}</a></h3><a class="card-link" href="#featured-heading">Read guide <span aria-hidden="true">→</span></a></article>)}
+{articles && articles.length > 0 && (
+  <section class="home-section home-section--featured" aria-labelledby="featured-heading">
+    <div class="container">
+      <div class="section-heading">
+        <h2 id="featured-heading">Featured Today</h2>
+        <p>Fresh ideas, practical tools and useful recommendations worth exploring.</p>
+      </div>
+      <div class="content-grid content-grid--three">
+        {articles.map((article) => (
+          <article class="content-card">
+            <p class="card-eyebrow">{article.category}</p>
+            <h3><a href={article.href}>{article.title}</a></h3>
+            <a class="card-link" href={article.href}>
+              Read guide <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        ))}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+)}

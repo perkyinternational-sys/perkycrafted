@@ -1,10 +1,36 @@
 ---
-const finds = ['Useful Desk Products', 'Travel Gadgets Worth Carrying', 'Kitchen Tools That Save Time'];
+interface Article {
+  title: string;
+  category: string;
+  href: string;
+}
+
+interface Props {
+  articles?: Article[];
+}
+
+const { articles = [] } = Astro.props;
 ---
 
-<section class="home-section home-section--muted home-section--finds" aria-labelledby="finds-heading">
-  <div class="container"><div class="section-heading"><h2 id="finds-heading">Useful Finds</h2><p>Practical products and everyday recommendations selected to make buying decisions easier.</p></div>
-    <div class="content-grid content-grid--three">{finds.map((find) => <article class="content-card"><p class="card-eyebrow">Smart Living</p><h3><a href="#finds-heading">{find}</a></h3><a class="card-link" href="#finds-heading">See recommendation <span aria-hidden="true">→</span></a></article>)}</div>
-    <p class="section-disclosure">Some links may be affiliate links. We may earn a commission at no extra cost to you.</p>
-  </div>
-</section>
+{articles && articles.length > 0 && (
+  <section class="home-section home-section--muted home-section--finds" aria-labelledby="finds-heading">
+    <div class="container">
+      <div class="section-heading">
+        <h2 id="finds-heading">Useful Finds</h2>
+        <p>Practical products and everyday recommendations selected to make buying decisions easier.</p>
+      </div>
+      <div class="content-grid content-grid--three">
+        {articles.map((article) => (
+          <article class="content-card">
+            <p class="card-eyebrow">{article.category}</p>
+            <h3><a href={article.href}>{article.title}</a></h3>
+            <a class="card-link" href={article.href}>
+              See recommendation <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        ))}
+      </div>
+      <p class="section-disclosure">Some links may be affiliate links. We may earn a commission at no extra cost to you.</p>
+    </div>
+  </section>
+)}

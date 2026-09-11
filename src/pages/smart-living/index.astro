@@ -1,6 +1,43 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CategoryPage from '../../components/category/CategoryPage.astro';
-const articles = ['Useful Desk Products', 'Travel Gadgets Worth Carrying', 'Kitchen Tools That Save Time', 'Smart Home Devices for Beginners', 'Everyday Products Worth Buying', 'Practical Gadgets for Small Spaces'].map((title) => ({ title }));
+
+const rawArticles = await getCollection('articles', ({ data }) => {
+  return data.category === 'Smart Living' && data.draft !== true;
+});
+
+const featuredEntry = rawArticles.find((entry) => entry.data.featured === true);
+const featuredArticle = featuredEntry
+  ? {
+      title: featuredEntry.data.title,
+      excerpt: featuredEntry.data.description,
+      href: `/articles/${featuredEntry.id}/`,
+    }
+  : undefined;
+
+const regularEntries = featuredEntry
+  ? rawArticles.filter((entry) => entry.id !== featuredEntry.id)
+  : rawArticles;
+
+const articles = regularEntries.map((entry) => ({
+  title: entry.data.title,
+  excerpt: entry.data.description,
+  href: `/articles/${entry.id}/`,
+  badge: entry.data.tags?.[0],
+}));
 ---
-<BaseLayout title="Smart Living | Perky Crafted" description="Useful products, everyday technology, practical recommendations and smarter buying ideas for modern life."><CategoryPage eyebrow="EXPLORE" title="Smart Living" description="Useful products, everyday technology, practical recommendations and smarter buying ideas for modern life." featuredArticle={{ title: 'Useful Products Under \u20B9500', excerpt: 'Helpful everyday finds selected for practical value.' }} articles={articles} pageClass="category-page--smart-living" /></BaseLayout>
+
+<BaseLayout
+  title="Smart Living | Perky Crafted"
+  description="Useful products, everyday technology, practical recommendations and smarter buying ideas for modern life."
+>
+  <CategoryPage
+    eyebrow="EXPLORE"
+    title="Smart Living"
+    description="Useful products, everyday technology, practical recommendations and smarter buying ideas for modern life."
+    featuredArticle={featuredArticle}
+    articles={articles}
+    pageClass="category-page--smart-living"
+  />
+</BaseLayout>

@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ShopHero from '../components/shop/ShopHero.astro';
+import ProductGrid from '../components/shop/ProductGrid.astro';
+import '../styles/shop.css';
+
+const products = [
+  {
+    title: 'AI Productivity Starter Kit',
+    description:
+      'A practical digital toolkit to help students and creators organize AI-assisted work more effectively.',
+    price: '₹299',
+    href: '/shop/ai-productivity-starter-kit/',
+    visualVariant: 1,
+  },
+  {
+    title: 'Creator Planning Workbook',
+    description:
+      'A structured printable workbook for planning content, projects and creative goals with greater clarity.',
+    price: '₹249',
+    href: '/shop/creator-planning-workbook/',
+    visualVariant: 2,
+  },
+  {
+    title: 'Smart Study Planner',
+    description:
+      'A downloadable study-planning system designed to make learning schedules simpler and more consistent.',
+    price: '₹199',
+    href: '/shop/smart-study-planner/',
+    visualVariant: 3,
+  },
+];
+---
+
+<BaseLayout
+  title="Perky Crafted Shop"
+  description="Explore practical digital products, printable resources and useful tools from Perky Crafted."
+>
+  <main class="shop-page">
+    <ShopHero
+      eyebrow="PERKY CRAFTED SHOP"
+      title="Useful digital products for everyday progress."
+      description="Practical downloads created to help you learn, plan, create and work smarter."
+    />
+
+    <div class="container shop-page__content">
+      <nav class="shop-category-nav" aria-label="Shop categories">
+        <a href="#all-products">All Products</a>
+        <a href="#all-products">AI & Digital</a>
+        <a href="#all-products">Create & Learn</a>
+        <a href="#all-products">Study & Planning</a>
+      </nav>
+
+      <section id="all-products" aria-labelledby="shop-products-heading">
+        <div class="shop-section-heading">
+          <p class="section-eyebrow">DIGITAL DOWNLOADS</p>
+          <h2 id="shop-products-heading">Explore Our Products</h2>
+        </div>
+
+        <ProductGrid products={products} />
+      </section>
+
+      <section class="shop-trust" aria-label="Digital product information">
+        <p>Instant digital delivery after successful payment.</p>
+        <p>No physical product will be shipped.</p>
+        <p>Secure payment integration will be added before launch.</p>
+        <p>Simple resources designed for practical everyday use.</p>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
