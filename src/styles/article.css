@@ -384,6 +384,17 @@
   font-weight: 600;
 }
 
+@media (max-width: 48rem) {
+  .article-body table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+
 .article-body pre {
   max-width: 100%;
   padding: var(--space-4);
